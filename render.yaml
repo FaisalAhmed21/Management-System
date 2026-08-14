@@ -1,9 +1,10 @@
-services:
+databases:
   # Managed PostgreSQL Database
-  - type: psql
-    name: assignment-db
+  - name: assignment-db
     plan: free
     postgresMajorVersion: 15
+
+services:
 
   # ASP.NET Core Backend
   - type: web
