@@ -26,6 +26,7 @@ export default function AdminTeacherAssignmentsPage() {
   const [assignments, setAssignments] = useState<TeacherAssignment[]>([]);
   const [teachers, setTeachers] = useState<User[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [classes, setClasses] = useState<any[]>([]);
   
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,14 +34,16 @@ export default function AdminTeacherAssignmentsPage() {
 
   const fetchData = async () => {
     try {
-      const [assRes, usrRes, subRes] = await Promise.all([
+      const [assRes, usrRes, subRes, clsRes] = await Promise.all([
         api.get('/teacher-assignments'),
         api.get('/users?role=Teacher'),
-        api.get('/subjects')
+        api.get('/subjects'),
+        api.get('/classes')
       ]);
       setAssignments(assRes.data);
       setTeachers(usrRes.data);
       setSubjects(subRes.data);
+      setClasses(clsRes.data);
     } catch (error) {
       console.error('Failed to fetch teacher assignments data', error);
     } finally {
@@ -130,9 +133,7 @@ export default function AdminTeacherAssignmentsPage() {
                     {subjects.find(s => s.id === assignment.subjectId)?.name || `ID: ${assignment.subjectId}`}
                   </td>
                   <td className="p-4 text-sm text-gray-400">
-                    {subjects.find(s => s.id === assignment.subjectId)?.classCourseId 
-                      ? `Class ID: ${subjects.find(s => s.id === assignment.subjectId)?.classCourseId}` 
-                      : `Class ID: ${assignment.classCourseId}`}
+                    {classes.find(c => c.id === assignment.classCourseId)?.name || `ID: ${assignment.classCourseId}`}
                   </td>
                   <td className="p-4 text-right">
                     <button 

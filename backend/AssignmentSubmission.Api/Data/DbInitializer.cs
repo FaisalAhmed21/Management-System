@@ -42,5 +42,54 @@ public static class DbInitializer
         var enrollment2 = new StudentEnrollment { StudentId = student2.Id, ClassCourseId = class10A.Id };
         context.Enrollments.AddRange(enrollment1, enrollment2);
         context.SaveChanges();
+
+        // 1. Published assignment with normal future deadline
+        var hw1 = new Assignment
+        {
+            Title = "Math Homework 1 - Algebra",
+            Description = "Please solve equations 1-10.",
+            SubjectId = mathSubject.Id,
+            ClassCourseId = class10A.Id,
+            TeacherId = teacher1.Id,
+            Deadline = DateTime.UtcNow.AddDays(7),
+            MaxMarks = 100,
+            Status = "Published",
+            AllowLateSubmissions = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        // 2. Published assignment with past deadline AND AllowLateSubmissions = true
+        var hw2 = new Assignment
+        {
+            Title = "Math Homework 2 - Geometry",
+            Description = "Draw the shapes.",
+            SubjectId = mathSubject.Id,
+            ClassCourseId = class10A.Id,
+            TeacherId = teacher1.Id,
+            Deadline = DateTime.UtcNow.AddDays(-2), // Past deadline
+            MaxMarks = 50,
+            Status = "Published",
+            AllowLateSubmissions = true,
+            CreatedAt = DateTime.UtcNow.AddDays(-10)
+        };
+
+        context.Assignments.AddRange(hw1, hw2);
+        context.SaveChanges();
+
+        // 3. Graded student submission
+        var submission1 = new Submission
+        {
+            AssignmentId = hw1.Id,
+            StudentId = student1.Id,
+            Content = "Here are my answers: x=5, y=10.",
+            Status = "Graded",
+            Marks = 95,
+            Feedback = "Excellent work!",
+            SubmittedAt = DateTime.UtcNow.AddDays(-1),
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        context.Submissions.Add(submission1);
+        context.SaveChanges();
     }
 }

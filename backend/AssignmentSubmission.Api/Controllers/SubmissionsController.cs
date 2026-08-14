@@ -33,6 +33,20 @@ public class SubmissionsController : ControllerBase
         return Ok(submissions);
     }
 
+    [HttpGet("for-teacher")]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> GetSubmissionsForTeacher()
+    {
+        var teacherId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var submissions = await _context.Submissions
+            .Include(s => s.Assignment)
+            .Include(s => s.Student)
+            .Where(s => s.Assignment.TeacherId == teacherId)
+            .ToListAsync();
+            
+        return Ok(submissions);
+    }
+
     [HttpPost]
     [Authorize(Roles = "Student")]
     public async Task<IActionResult> Submit([FromBody] CreateSubmissionDto dto)
@@ -42,6 +56,9 @@ public class SubmissionsController : ControllerBase
         var assignment = await _context.Assignments.FindAsync(dto.AssignmentId);
         if (assignment == null) return NotFound("Assignment not found");
         if (assignment.Status != "Published") return BadRequest("Assignment is not published yet.");
+
+        var isEnrolled = await _context.Enrollments.AnyAsync(e => e.StudentId == studentId && e.ClassCourseId == assignment.ClassCourseId);
+        if (!isEnrolled) return Forbid();
 
         var existingSubmission = await _context.Submissions
             .FirstOrDefaultAsync(s => s.AssignmentId == dto.AssignmentId && s.StudentId == studentId);

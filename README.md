@@ -1,74 +1,110 @@
 # Assignment & Submission Management System
 
-This is a complete, role-based Assignment & Submission Management System built for a school/college. 
-The project is organized as a monorepo containing a `.NET 8 Web API` backend and a `Next.js 14` frontend.
+A robust, role-based platform designed for educational institutions to streamline the assignment lifecycle. Administrators manage the foundation (users, classes, and subjects), Teachers create, distribute, and grade assignments, and Students view their deadlines, submit their work, and review their grades—all within a single, unified system.
 
-## Features
-- **Role-based Access Control**: Three distinct roles (Admin, Teacher, Student) with server-side authorization policies.
-- **Assignment Management**: Teachers can create, publish, and manage assignments.
-- **Submission Workflow**: Students can submit assignments, which are automatically marked "Late" if submitted past the deadline unless explicitly allowed.
-- **Grading System**: Teachers can grade submissions and provide feedback.
-- **Security**: JWT-based authentication, BCrypt password hashing.
+## Main Features
+
+### Admin
+- **Dashboard Overview:** Key statistics (total users, classes, assignments).
+- **User Management:** Create, read, and manage Admin, Teacher, and Student accounts.
+- **Class & Subject Management:** Define the curriculum structure.
+- **Teacher Assignments:** Securely map Teachers to specific Subject + Class combinations so they can only manage relevant coursework.
+
+### Teacher
+- **My Assignments CRUD:** Create, edit, publish, and delete homework, scoped exclusively to their assigned classes. Drafts are supported.
+- **Deadlines & Late Policies:** Native datetime pickers for deadlines, with explicit toggles allowing or preventing late submissions.
+- **Submissions & Grading:** Review student submissions per assignment and provide Marks and Feedback through an intuitive grading interface.
+
+### Student
+- **Assignment Feed:** View all currently *Published* assignments for the classes they are enrolled in.
+- **Submission Portal:** Submit text content or external file URLs securely before the deadline (or later if explicitly permitted).
+- **Grades History:** Dedicated view to check teacher feedback and final marks on graded assignments.
 
 ## Tech Stack
-- **Backend**: ASP.NET Core Web API (.NET 8), Entity Framework Core (Code-First), PostgreSQL, FluentValidation, Serilog, Swashbuckle, xUnit.
-- **Frontend**: Next.js 14 (App Router), React, TypeScript, Tailwind CSS, React Hook Form, Zod, Axios, Zustand.
+- **Backend:** C# / .NET 8 (ASP.NET Core Web API)
+- **Frontend:** Next.js (React), Tailwind CSS, Lucide Icons, Zustand (for state management)
+- **Database:** PostgreSQL (via Entity Framework Core)
+- **Authentication:** JWT Bearer Tokens (Role-based Authorization)
+- **Testing:** xUnit + Moq (Backend)
 
 ## Project Structure
-- `/backend`: Contains the .NET 8 Web API (`AssignmentSubmission.Api`) and Unit Tests (`AssignmentSubmission.Tests`).
-- `/frontend`: Contains the Next.js React application.
+```text
+.
+├── backend/
+│   ├── AssignmentSubmission.Api/   # Main ASP.NET Core project
+│   │   ├── Controllers/            # API Endpoints
+│   │   ├── Models/                 # EF Core Entities
+│   │   ├── DTOs/                   # Data Transfer Objects
+│   │   └── Data/                   # DbContext & Seeding
+│   └── AssignmentSubmission.Tests/ # xUnit Test Suite
+└── frontend/
+    └── src/
+        ├── app/                    # Next.js App Router (Admin, Teacher, Student layouts)
+        ├── components/             # Reusable UI components
+        ├── lib/                    # Axios API interceptors
+        └── store/                  # Zustand authentication state
+```
 
 ## Setup Instructions
 
-### 1. Database & Backend
-1. Ensure you have **PostgreSQL** installed and running.
-2. Ensure you have the **.NET 8 SDK** installed.
-3. Open `backend/AssignmentSubmission.Api/appsettings.json` and configure your `DefaultConnection` string (update username/password).
-4. Open a terminal in `backend/AssignmentSubmission.Api` and run the initial migration:
+### Prerequisites
+- Node.js (v18+)
+- .NET 8 SDK
+- PostgreSQL (running locally or remotely)
+
+### Database Setup
+1. Create a local PostgreSQL database (e.g., `assignment_submission_db`).
+2. Navigate to `backend/AssignmentSubmission.Api`.
+3. Set your connection string in `appsettings.Development.json` (or via environment variables).
+4. Run migrations and seed the database:
    ```bash
-   dotnet ef migrations add InitialCreate
    dotnet ef database update
    ```
-   *(Note: The database will be seeded automatically on startup via `DbInitializer` if empty).*
-5. Run the backend:
+   *Note: This automatically seeds Admin, Teacher, and Student users, along with sample classes, enrollments, and assignments.*
+
+### Running the Backend
+1. Navigate to `backend/AssignmentSubmission.Api`.
+2. Run the application:
    ```bash
    dotnet run
    ```
-   The API will start (usually on `https://localhost:7198`). You can access Swagger at `/swagger`.
+   The API will start at `http://localhost:5000` (or the port defined in your properties). Swagger UI is available at `/swagger`.
 
-### 2. Frontend
-1. Ensure you have **Node.js** (v18+) installed.
-2. Open a terminal in `/frontend`.
-3. Install dependencies (if not already installed):
+### Running the Frontend
+1. Navigate to `frontend`.
+2. Install dependencies:
    ```bash
    npm install
    ```
-4. Run the development server:
+3. Set up your `.env.local` based on `.env.example`.
+4. Start the development server:
    ```bash
    npm run dev
    ```
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+   The application will be accessible at `http://localhost:3000`.
 
-## Demo Credentials (Seeded Data)
+### Running the Test Suite
+1. Navigate to `backend/AssignmentSubmission.Tests`.
+2. Run the tests:
+   ```bash
+   dotnet test
+   ```
 
-The following users are automatically created upon the first database initialization:
+## Assumptions Made
+- **File Uploads:** Assumed the spec ("File Upload or Link") allows users to just provide an external URL to a hosted file (like Google Drive) or text content natively, rather than building an S3/Blob storage architecture for binary file uploads within the MVP.
+- **Teacher Assignment Updates:** A teacher's mapping to a class/subject is managed by Admins via Assign/Remove relationships rather than "Editing" the relationship.
+- **Grades:** Marks are stored as integers (e.g., `95` out of `100`), not letters or floats.
+- **Student Enrollment:** Students are strictly enrolled into entire `ClassCourses`, and automatically inherit assignments for all `Subjects` mapped to that class.
 
-- **Admin**: `admin@example.com` / `Password123`
-- **Teacher**: `teacher1@example.com` / `Password123`
-- **Teacher**: `teacher2@example.com` / `Password123`
-- **Student**: `student1@example.com` / `Password123`
-- **Student**: `student2@example.com` / `Password123`
+## Known Limitations
+- **Responsive Design:** The UI is predominantly optimized for desktop/tablet viewports; heavy data tables may require horizontal scrolling on narrow mobile devices.
+- **Toast Notifications / Error Handling Polish:** While the core API error handling works and native `alert()` dialogs intercept issues, global non-blocking toast notifications are omitted per MVP scope constraints.
+- **Test Coverage:** The test suite covers the fundamental controller logic (Status transitions, Marks boundaries) but does not include exhaustive End-to-End browser tests (like Cypress) or full frontend component rendering tests.
 
-## Assumptions & Design Decisions
-1. **User Management**: We assume the Admin creates users (Teachers/Students). A basic `/api/auth/register` is provided, but in production, it would be secured.
-2. **Submission Format**: Submissions consist of a `Content` text field (e.g., textarea) and an optional `FileUrl` string (for links to external files/Google Drive, etc.).
-3. **Late Submissions**: A student can submit after the deadline. If `AllowLateSubmissions` is false, it's blocked. If true, it automatically gets the status `Late` instead of `Submitted`.
-4. **Environment**: The workspace lacked the `.NET CLI` during scaffolding, so the backend `.csproj` and C# files were constructed manually. You will need to run the `dotnet ef` migration commands locally.
+## Demo Credentials
 
-## Testing
-To run the backend unit tests:
-```bash
-cd backend/AssignmentSubmission.Tests
-dotnet test
-```
-This tests core business rules like deadline enforcement and grading limits.
+The database seeding mechanism automatically provides the following working accounts:
+
+Admin Email: admin@example.com Password: Password123
+Teacher Email: teacher1@example.com Password: Password123
+Student Email: student1@example.com Password: Password123

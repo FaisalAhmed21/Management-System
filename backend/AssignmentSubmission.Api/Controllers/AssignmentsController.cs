@@ -99,7 +99,7 @@ public class AssignmentsController : ControllerBase
             SubjectId = dto.SubjectId,
             ClassCourseId = dto.ClassCourseId,
             TeacherId = teacherId,
-            Deadline = dto.Deadline,
+            Deadline = dto.Deadline.ToUniversalTime(),
             MaxMarks = dto.MaxMarks,
             Status = dto.Status,
             AllowLateSubmissions = dto.AllowLateSubmissions
@@ -128,12 +128,27 @@ public class AssignmentsController : ControllerBase
 
         assignment.Title = dto.Title;
         assignment.Description = dto.Description;
-        assignment.Deadline = dto.Deadline;
+        assignment.Deadline = dto.Deadline.ToUniversalTime();
         assignment.MaxMarks = dto.MaxMarks;
         assignment.Status = dto.Status;
         assignment.AllowLateSubmissions = dto.AllowLateSubmissions;
 
         await _context.SaveChangesAsync();
         return Ok(assignment);
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var assignment = await _context.Assignments.FindAsync(id);
+        if (assignment == null) return NotFound();
+
+        var teacherId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        if (assignment.TeacherId != teacherId) return Forbid();
+
+        _context.Assignments.Remove(assignment);
+        await _context.SaveChangesAsync();
+        return NoContent();
     }
 }
