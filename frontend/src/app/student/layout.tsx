@@ -16,12 +16,12 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
     setIsMounted(true);
     if (!user) {
       router.push('/login');
-    } else if (user.role !== 'Student' && user.role !== 'Admin') {
-      router.push('/teacher');
+    } else if (user.role !== 'Student') {
+      router.push(user.role === 'Admin' ? '/admin' : '/teacher');
     }
   }, [user, router]);
 
-  if (!isMounted || !user || (user.role !== 'Student' && user.role !== 'Admin')) {
+  if (!isMounted || !user || user.role !== 'Student') {
     return null;
   }
 

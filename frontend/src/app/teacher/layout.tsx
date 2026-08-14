@@ -16,12 +16,12 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
     setIsMounted(true);
     if (!user) {
       router.push('/login');
-    } else if (user.role !== 'Teacher' && user.role !== 'Admin') {
-      router.push('/student');
+    } else if (user.role !== 'Teacher') {
+      router.push(user.role === 'Admin' ? '/admin' : '/student');
     }
   }, [user, router]);
 
-  if (!isMounted || !user || (user.role !== 'Teacher' && user.role !== 'Admin')) {
+  if (!isMounted || !user || user.role !== 'Teacher') {
     return null; // or a loading spinner
   }
 
