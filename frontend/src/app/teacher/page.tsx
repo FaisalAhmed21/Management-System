@@ -17,7 +17,7 @@ export default function TeacherOverviewPage() {
     const fetchStats = async () => {
       try {
         // We fetch the assignments created by this teacher
-        const assignmentsRes = await api.get('/assignments');
+        const assignmentsRes = await api.get('/assignments/mine');
         
         // This is a naive count based on whatever the backend returns.
         // Assuming the backend filters by logged-in teacher automatically 
