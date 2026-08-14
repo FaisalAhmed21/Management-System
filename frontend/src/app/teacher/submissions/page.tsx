@@ -25,7 +25,7 @@ interface Submission {
   status: string;
   marks: number | null;
   feedback: string | null;
-  createdAt: string;
+  submittedAt: string;
   updatedAt: string;
   assignment?: Assignment;
   student?: Student;
@@ -39,7 +39,7 @@ export default function TeacherSubmissionsPage() {
   const [activeSubmission, setActiveSubmission] = useState<Submission | null>(null);
   
   const [formData, setFormData] = useState({
-    marks: 0,
+    marks: '' as string | number,
     feedback: ''
   });
 
@@ -61,7 +61,7 @@ export default function TeacherSubmissionsPage() {
   const handleOpenGradeModal = (submission: Submission) => {
     setActiveSubmission(submission);
     setFormData({
-      marks: submission.marks || 0,
+      marks: submission.marks ?? '',
       feedback: submission.feedback || ''
     });
     setIsModalOpen(true);
@@ -77,7 +77,10 @@ export default function TeacherSubmissionsPage() {
     if (!activeSubmission) return;
     
     try {
-      await api.put(`/submissions/${activeSubmission.id}/grade`, formData);
+      await api.put(`/submissions/${activeSubmission.id}/grade`, {
+        ...formData,
+        marks: Number(formData.marks)
+      });
       fetchSubmissions();
       handleCloseModal();
     } catch (error: any) {
@@ -128,7 +131,7 @@ export default function TeacherSubmissionsPage() {
                     {sub.student?.name || `Student ID: ${sub.studentId}`}
                   </td>
                   <td className="p-4 text-sm text-ink-muted">
-                    {new Date(sub.createdAt).toLocaleString()}
+                    {new Date(sub.submittedAt).toLocaleString()}
                   </td>
                   <td className="p-4">
                     {getStatusBadge(sub.status)}
@@ -180,7 +183,7 @@ export default function TeacherSubmissionsPage() {
               </div>
               <div className="grid grid-cols-3">
                 <span className="text-ink-muted">Submitted:</span>
-                <span className="col-span-2 text-ink font-medium">{new Date(activeSubmission.createdAt).toLocaleString()}</span>
+                <span className="col-span-2 text-ink font-medium">{new Date(activeSubmission.submittedAt).toLocaleString()}</span>
               </div>
               
               <div className="bg-paper rounded-lg p-4 mt-2 border border-border">
@@ -206,8 +209,8 @@ export default function TeacherSubmissionsPage() {
                   min="0" 
                   max={activeSubmission.assignment?.maxMarks} 
                   required 
-                  value={Number.isNaN(formData.marks) ? '' : formData.marks} 
-                  onChange={(e) => setFormData({ ...formData, marks: e.target.value === '' ? ('' as any) : parseInt(e.target.value) })} 
+                  value={formData.marks} 
+                  onChange={(e) => setFormData({ ...formData, marks: e.target.value })} 
                   className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" 
                 />
               </div>

@@ -47,7 +47,7 @@ export default function TeacherAssignmentsPage() {
     description: '',
     subjectAndClass: '', // combined string format "subjectId-classCourseId"
     deadline: '',
-    maxMarks: 100,
+    maxMarks: 100 as string | number,
     status: 'Draft',
     allowLateSubmissions: false
   });
@@ -124,7 +124,7 @@ export default function TeacherAssignmentsPage() {
         subjectId: parseInt(subjectId),
         classCourseId: parseInt(classCourseId),
         deadline: new Date(formData.deadline).toISOString(),
-        maxMarks: formData.maxMarks,
+        maxMarks: Number(formData.maxMarks),
         status: formData.status,
         allowLateSubmissions: formData.allowLateSubmissions
       };
@@ -280,7 +280,7 @@ export default function TeacherAssignmentsPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-ink-muted mb-1">Max Marks</label>
-                    <input type="number" min="0" required value={Number.isNaN(formData.maxMarks) ? '' : formData.maxMarks} onChange={(e) => setFormData({ ...formData, maxMarks: e.target.value === '' ? ('' as any) : parseInt(e.target.value) })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" />
+                    <input type="number" min="0" required value={formData.maxMarks} onChange={(e) => setFormData({ ...formData, maxMarks: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" />
                   </div>
 
                   <div>
