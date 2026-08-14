@@ -41,11 +41,9 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
       {/* Sidebar */}
       <aside className="w-64 bg-teacher text-white border-r-0 flex flex-col">
         <div className="p-6">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <CheckCircle className="text-blue-500" />
+          <h2 className="text-xl font-bold text-white tracking-tight">
             Teacher Portal
           </h2>
-          <p className="text-sm text-white-muted mt-1">Welcome, {user.name}</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">
