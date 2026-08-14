@@ -42,6 +42,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
           <h2 className="text-xl font-bold text-white tracking-tight">
             Student Portal
           </h2>
+          <p className="text-sm text-white-muted mt-1">Welcome, {user.name}</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">

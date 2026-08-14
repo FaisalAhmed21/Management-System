@@ -40,6 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-64 bg-admin text-white border-r-0 flex flex-col">
         <div className="p-6">
           <h2 className="text-xl font-bold text-white tracking-tight">Admin Portal</h2>
+          <p className="text-sm text-white-muted mt-1">{user.name}</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">
