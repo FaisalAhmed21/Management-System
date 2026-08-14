@@ -46,10 +46,10 @@ export default function StudentAssignmentsPage() {
 
   const getSubmissionStatus = (assignmentId: number) => {
     const sub = submissions.find(s => s.assignmentId === assignmentId);
-    if (!sub) return { type: 'pending', text: 'Not Submitted', icon: Clock, color: 'text-yellow-500', bg: 'bg-yellow-500/10' };
-    if (sub.status === 'Graded') return { type: 'graded', text: `Graded: ${sub.marks} marks`, icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-500/10' };
-    if (sub.status === 'Late') return { type: 'late', text: 'Submitted Late', icon: AlertCircle, color: 'text-orange-500', bg: 'bg-orange-500/10' };
-    return { type: 'submitted', text: 'Submitted', icon: CheckCircle, color: 'text-blue-500', bg: 'bg-blue-500/10' };
+    if (!sub) return { type: 'pending', text: 'Not Submitted', color: 'text-yellow-500', bg: 'bg-yellow-500/10' };
+    if (sub.status === 'Graded') return { type: 'graded', text: `Graded: ${sub.marks} marks`, color: 'text-green-500', bg: 'bg-green-500/10' };
+    if (sub.status === 'Late') return { type: 'late', text: 'Submitted Late', color: 'text-orange-500', bg: 'bg-orange-500/10' };
+    return { type: 'submitted', text: 'Submitted', color: 'text-blue-500', bg: 'bg-blue-500/10' };
   };
 
   if (loading) return <div className="text-ink-muted">Loading your assignments...</div>;
@@ -66,7 +66,6 @@ export default function StudentAssignmentsPage() {
         <div className="grid gap-4">
           {assignments.map(assignment => {
             const status = getSubmissionStatus(assignment.id);
-            const Icon = status.icon;
             
             return (
               <Link href={`/student/assignments/${assignment.id}`} key={assignment.id}>
@@ -87,7 +86,6 @@ export default function StudentAssignmentsPage() {
                   
                   <div className="flex items-center gap-4">
                     <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${status.bg} ${status.color} text-sm font-medium`}>
-                      <Icon className="w-4 h-4" />
                       {status.text}
                     </div>
                     <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-green-500 transition-colors" />

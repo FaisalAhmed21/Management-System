@@ -43,9 +43,9 @@ export default function TeacherOverviewPage() {
   if (loading) return <div className="text-ink-muted">Loading overview...</div>;
 
   const statCards = [
-    { title: 'My Assignments', value: stats.totalAssignments, icon: BookOpen, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-    { title: 'Total Submissions', value: 'N/A', icon: FileText, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-    { title: 'Pending Grades', value: 'N/A', icon: CheckCircle, color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
+    { title: 'My Assignments', value: stats.totalAssignments },
+    { title: 'Total Submissions', value: 'N/A' },
+    { title: 'Pending Grades', value: 'N/A' },
   ];
 
   return (
@@ -58,9 +58,6 @@ export default function TeacherOverviewPage() {
             <div>
               <p className="text-sm text-ink-muted font-medium mb-1">{stat.title}</p>
               <h3 className="text-3xl font-bold text-ink">{stat.value}</h3>
-            </div>
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.bg} ${stat.color}`}>
-              <stat.icon className="w-6 h-6" />
             </div>
           </div>
         ))}

@@ -132,7 +132,7 @@ export default function StudentAssignmentDetailPage() {
               <div className="space-y-4">
                 <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
                   <p className="text-green-400 font-medium flex items-center gap-2 mb-2">
-                    <CheckCircle className="w-4 h-4" /> {submission.status}
+                    {submission.status}
                   </p>
                   <p className="text-sm text-ink-muted mb-4">Last updated: {new Date(submission.updatedAt).toLocaleString()}</p>
                   
@@ -168,7 +168,7 @@ export default function StudentAssignmentDetailPage() {
                   <>
                     {isPastDeadline && assignment.allowLateSubmissions && (
                       <div className="bg-yellow-500/10 text-yellow-500 p-3 rounded-lg text-xs font-medium flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4" /> This will be marked as Late.
+                        This will be marked as Late.
                       </div>
                     )}
                     <div>
