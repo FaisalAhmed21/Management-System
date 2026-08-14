@@ -46,11 +46,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8 backdrop-blur-sm">
+    <div className="min-h-screen bg-paper flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-surface border border-border rounded-2xl shadow-2xl p-8 backdrop-blur-sm">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-          <p className="text-gray-400">Sign in to Assignment & Submission System</p>
+          <h1 className="text-3xl font-bold text-ink mb-2">Welcome Back</h1>
+          <p className="text-ink-muted">Sign in to Assignment & Submission System</p>
         </div>
 
         {error && (
@@ -61,15 +61,15 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+            <label className="block text-sm font-medium text-ink mb-2">Email Address</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-500" />
+                <Mail className="h-5 w-5 text-ink-muted" />
               </div>
               <input
                 type="email"
                 {...register('email')}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-800 rounded-xl bg-gray-950 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="block w-full pl-10 pr-3 py-3 border border-border rounded-xl bg-paper text-ink placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 placeholder="you@example.com"
               />
             </div>
@@ -77,15 +77,15 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+            <label className="block text-sm font-medium text-ink mb-2">Password</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-500" />
+                <Lock className="h-5 w-5 text-ink-muted" />
               </div>
               <input
                 type="password"
                 {...register('password')}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-800 rounded-xl bg-gray-950 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="block w-full pl-10 pr-3 py-3 border border-border rounded-xl bg-paper text-ink placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -95,7 +95,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-ink bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Signing in...' : 'Sign In'}
           </button>

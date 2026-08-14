@@ -35,12 +35,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 flex">
+    <div className="min-h-screen bg-paper flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+      <aside className="w-64 bg-admin text-white border-r-0 flex flex-col">
         <div className="p-6">
           <h2 className="text-xl font-bold text-white tracking-tight">Admin Portal</h2>
-          <p className="text-sm text-gray-400 mt-1">{user.name}</p>
+          <p className="text-sm text-white-muted mt-1">{user.name}</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">
@@ -54,7 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
                   isActive 
                     ? 'bg-blue-600/10 text-blue-500 font-medium' 
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+                    : 'text-white-muted hover:text-white hover:bg-border/30'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -64,10 +64,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-4 border-t border-gray-800">
+        <div className="p-4 border-t border-border">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-white-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
           >
             <LogOut className="h-5 w-5" />
             Sign Out

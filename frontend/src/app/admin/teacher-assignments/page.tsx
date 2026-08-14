@@ -100,10 +100,10 @@ export default function AdminTeacherAssignmentsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-white">Teacher Assignments</h1>
+        <h1 className="text-2xl font-bold text-ink">Teacher Assignments</h1>
         <button 
           onClick={handleOpenModal}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-blue-600 hover:bg-blue-700 text-ink px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Assign Teacher
@@ -111,34 +111,34 @@ export default function AdminTeacherAssignmentsPage() {
       </div>
 
       {loading ? (
-        <div className="text-gray-400">Loading assignments...</div>
+        <div className="text-ink-muted">Loading assignments...</div>
       ) : (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-800/50 border-b border-gray-800">
-                <th className="p-4 text-sm font-medium text-gray-400">Teacher</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Subject</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Class/Course</th>
-                <th className="p-4 text-sm font-medium text-gray-400 text-right">Actions</th>
+              <tr className="bg-border/20 border-b border-border">
+                <th className="p-4 text-sm font-medium text-ink-muted">Teacher</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Subject</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Class/Course</th>
+                <th className="p-4 text-sm font-medium text-ink-muted text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800">
+            <tbody className="divide-y divide-border">
               {assignments.map((assignment) => (
-                <tr key={assignment.id} className="hover:bg-gray-800/20 transition-colors">
-                  <td className="p-4 text-sm text-gray-200">
+                <tr key={assignment.id} className="hover:bg-border/30 transition-colors">
+                  <td className="p-4 text-sm text-ink">
                     {teachers.find(t => t.id === assignment.teacherId)?.name || `ID: ${assignment.teacherId}`}
                   </td>
-                  <td className="p-4 text-sm text-gray-400">
+                  <td className="p-4 text-sm text-ink-muted">
                     {subjects.find(s => s.id === assignment.subjectId)?.name || `ID: ${assignment.subjectId}`}
                   </td>
-                  <td className="p-4 text-sm text-gray-400">
+                  <td className="p-4 text-sm text-ink-muted">
                     {classes.find(c => c.id === assignment.classCourseId)?.name || `ID: ${assignment.classCourseId}`}
                   </td>
                   <td className="p-4 text-right">
                     <button 
                       onClick={() => handleDelete(assignment.id)}
-                      className="text-gray-500 hover:text-red-400 transition-colors"
+                      className="text-ink-muted hover:text-red-400 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -147,7 +147,7 @@ export default function AdminTeacherAssignmentsPage() {
               ))}
               {assignments.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-gray-500">
+                  <td colSpan={4} className="p-8 text-center text-ink-muted">
                     No teacher assignments found.
                   </td>
                 </tr>
@@ -160,30 +160,30 @@ export default function AdminTeacherAssignmentsPage() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl w-full max-w-md p-6 shadow-xl">
+          <div className="bg-surface border border-border rounded-xl w-full max-w-md p-6 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-white">Assign Teacher</h2>
-              <button onClick={handleCloseModal} className="text-gray-400 hover:text-gray-200">
+              <h2 className="text-xl font-bold text-ink">Assign Teacher</h2>
+              <button onClick={handleCloseModal} className="text-ink-muted hover:text-ink">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Teacher</label>
-                <select required value={formData.teacherId} onChange={(e) => setFormData({ ...formData, teacherId: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-ink-muted mb-1">Teacher</label>
+                <select required value={formData.teacherId} onChange={(e) => setFormData({ ...formData, teacherId: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500">
                   {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Subject</label>
-                <select required value={formData.subjectId} onChange={(e) => setFormData({ ...formData, subjectId: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-ink-muted mb-1">Subject</label>
+                <select required value={formData.subjectId} onChange={(e) => setFormData({ ...formData, subjectId: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500">
                   {subjects.map(s => <option key={s.id} value={s.id}>{s.name} (Class {s.classCourseId})</option>)}
                 </select>
               </div>
               <div className="flex justify-end gap-3 pt-4">
-                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">Cancel</button>
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">Assign</button>
+                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-ink-muted hover:text-ink hover:bg-border/30 transition-colors">Cancel</button>
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-ink px-4 py-2 rounded-lg transition-colors">Assign</button>
               </div>
             </form>
           </div>

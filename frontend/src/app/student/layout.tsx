@@ -36,14 +36,14 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
   ];
 
   return (
-    <div className="flex h-screen bg-gray-950">
-      <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+    <div className="flex h-screen bg-paper">
+      <aside className="w-64 bg-student text-white border-r-0 flex flex-col">
         <div className="p-6">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <GraduationCap className="text-green-500" />
             Student Portal
           </h2>
-          <p className="text-sm text-gray-400 mt-1">Welcome, {user.name}</p>
+          <p className="text-sm text-white-muted mt-1">Welcome, {user.name}</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 mt-4">
@@ -57,7 +57,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   isActive 
                     ? 'bg-green-600/10 text-green-500 font-medium' 
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+                    : 'text-white-muted hover:text-white hover:bg-border/30'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -67,10 +67,10 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
           })}
         </nav>
 
-        <div className="p-4 border-t border-gray-800">
+        <div className="p-4 border-t border-border">
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-left text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
+            className="flex items-center gap-3 px-4 py-3 w-full text-left text-white-muted hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
           >
             <LogOut className="w-5 h-5" />
             Logout
@@ -78,7 +78,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto bg-gray-950 p-8">
+      <main className="flex-1 overflow-y-auto bg-paper p-8 text-ink">
         <div className="max-w-6xl mx-auto">
           {children}
         </div>

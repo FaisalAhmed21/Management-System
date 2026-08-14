@@ -40,7 +40,7 @@ export default function TeacherOverviewPage() {
     fetchStats();
   }, []);
 
-  if (loading) return <div className="text-gray-400">Loading overview...</div>;
+  if (loading) return <div className="text-ink-muted">Loading overview...</div>;
 
   const statCards = [
     { title: 'My Assignments', value: stats.totalAssignments, icon: BookOpen, color: 'text-blue-500', bg: 'bg-blue-500/10' },
@@ -50,14 +50,14 @@ export default function TeacherOverviewPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-8">Teacher Overview</h1>
+      <h1 className="text-2xl font-bold text-ink mb-8">Teacher Overview</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {statCards.map((stat, idx) => (
-          <div key={idx} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 flex items-center justify-between">
+          <div key={idx} className="bg-surface border border-border rounded-2xl p-6 flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400 font-medium mb-1">{stat.title}</p>
-              <h3 className="text-3xl font-bold text-white">{stat.value}</h3>
+              <p className="text-sm text-ink-muted font-medium mb-1">{stat.title}</p>
+              <h3 className="text-3xl font-bold text-ink">{stat.value}</h3>
             </div>
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.bg} ${stat.color}`}>
               <stat.icon className="w-6 h-6" />
@@ -67,13 +67,13 @@ export default function TeacherOverviewPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <h2 className="text-lg font-bold text-white mb-4">Quick Actions</h2>
+        <div className="bg-surface border border-border rounded-2xl p-6">
+          <h2 className="text-lg font-bold text-ink mb-4">Quick Actions</h2>
           <div className="space-y-3">
-            <Link href="/teacher/assignments" className="block p-4 rounded-xl border border-gray-800 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all text-gray-300 hover:text-white">
+            <Link href="/teacher/assignments" className="block p-4 rounded-xl border border-border hover:border-blue-500/50 hover:bg-blue-500/5 transition-all text-ink hover:text-ink">
               Create a new Assignment
             </Link>
-            <Link href="/teacher/submissions" className="block p-4 rounded-xl border border-gray-800 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-gray-300 hover:text-white">
+            <Link href="/teacher/submissions" className="block p-4 rounded-xl border border-border hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-ink hover:text-ink">
               Grade pending Submissions
             </Link>
           </div>

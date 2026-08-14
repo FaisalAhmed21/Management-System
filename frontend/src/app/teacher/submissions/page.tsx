@@ -89,51 +89,51 @@ export default function TeacherSubmissionsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'Graded':
-        return <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400">Graded</span>;
+        return <span className="rubber-stamp-blue">Graded</span>;
       case 'Late':
-        return <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400">Late</span>;
+        return <span className="rubber-stamp-red">Late</span>;
       default:
-        return <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-400">{status}</span>;
+        return <span className="rubber-stamp-green">{status}</span>;
     }
   };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-white">Student Submissions</h1>
+        <h1 className="text-2xl font-bold text-ink">Student Submissions</h1>
       </div>
 
       {loading ? (
-        <div className="text-gray-400">Loading submissions...</div>
+        <div className="text-ink-muted">Loading submissions...</div>
       ) : (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-800/50 border-b border-gray-800">
-                <th className="p-4 text-sm font-medium text-gray-400">Assignment</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Student</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Submitted At</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Status</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Marks</th>
-                <th className="p-4 text-sm font-medium text-gray-400 text-right">Actions</th>
+              <tr className="bg-border/20 border-b border-border">
+                <th className="p-4 text-sm font-medium text-ink-muted">Assignment</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Student</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Submitted At</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Status</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Marks</th>
+                <th className="p-4 text-sm font-medium text-ink-muted text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800">
+            <tbody className="divide-y divide-border">
               {submissions.map((sub) => (
-                <tr key={sub.id} className="hover:bg-gray-800/20 transition-colors">
-                  <td className="p-4 text-sm text-gray-200">
+                <tr key={sub.id} className="hover:bg-border/30 transition-colors">
+                  <td className="p-4 text-sm text-ink">
                     {sub.assignment?.title || `Assignment ID: ${sub.assignmentId}`}
                   </td>
-                  <td className="p-4 text-sm text-gray-400">
+                  <td className="p-4 text-sm text-ink-muted">
                     {sub.student?.name || `Student ID: ${sub.studentId}`}
                   </td>
-                  <td className="p-4 text-sm text-gray-400">
+                  <td className="p-4 text-sm text-ink-muted">
                     {new Date(sub.createdAt).toLocaleString()}
                   </td>
                   <td className="p-4">
                     {getStatusBadge(sub.status)}
                   </td>
-                  <td className="p-4 text-sm text-gray-400">
+                  <td className="p-4 text-sm text-ink-muted">
                     {sub.marks !== null ? `${sub.marks} / ${sub.assignment?.maxMarks}` : '-'}
                   </td>
                   <td className="p-4 text-right">
@@ -148,7 +148,7 @@ export default function TeacherSubmissionsPage() {
               ))}
               {submissions.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-gray-500">
+                  <td colSpan={6} className="p-8 text-center text-ink-muted">
                     No submissions found for your assignments yet.
                   </td>
                 </tr>
@@ -161,33 +161,33 @@ export default function TeacherSubmissionsPage() {
       {/* Grade Modal */}
       {isModalOpen && activeSubmission && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl w-full max-w-lg p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4 border-b border-gray-800 pb-4">
-              <h2 className="text-xl font-bold text-white">Grade Submission</h2>
-              <button onClick={handleCloseModal} className="text-gray-400 hover:text-gray-200">
+          <div className="bg-surface border border-border rounded-xl w-full max-w-lg p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4 border-b border-border pb-4">
+              <h2 className="text-xl font-bold text-ink">Grade Submission</h2>
+              <button onClick={handleCloseModal} className="text-ink-muted hover:text-ink">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             <div className="mb-6 space-y-4 text-sm">
               <div className="grid grid-cols-3">
-                <span className="text-gray-500">Student:</span>
-                <span className="col-span-2 text-white font-medium">{activeSubmission.student?.name}</span>
+                <span className="text-ink-muted">Student:</span>
+                <span className="col-span-2 text-ink font-medium">{activeSubmission.student?.name}</span>
               </div>
               <div className="grid grid-cols-3">
-                <span className="text-gray-500">Assignment:</span>
-                <span className="col-span-2 text-white font-medium">{activeSubmission.assignment?.title}</span>
+                <span className="text-ink-muted">Assignment:</span>
+                <span className="col-span-2 text-ink font-medium">{activeSubmission.assignment?.title}</span>
               </div>
               <div className="grid grid-cols-3">
-                <span className="text-gray-500">Submitted:</span>
-                <span className="col-span-2 text-white font-medium">{new Date(activeSubmission.createdAt).toLocaleString()}</span>
+                <span className="text-ink-muted">Submitted:</span>
+                <span className="col-span-2 text-ink font-medium">{new Date(activeSubmission.createdAt).toLocaleString()}</span>
               </div>
               
-              <div className="bg-gray-950 rounded-lg p-4 mt-2 border border-gray-800">
-                <h4 className="text-gray-500 font-medium mb-2 text-xs uppercase tracking-wider">Submission Content</h4>
-                <p className="text-gray-300 whitespace-pre-wrap">{activeSubmission.content || 'No text content provided.'}</p>
+              <div className="bg-paper rounded-lg p-4 mt-2 border border-border">
+                <h4 className="text-ink-muted font-medium mb-2 text-xs uppercase tracking-wider">Submission Content</h4>
+                <p className="text-ink whitespace-pre-wrap">{activeSubmission.content || 'No text content provided.'}</p>
                 {activeSubmission.fileUrl && (
-                  <div className="mt-4 pt-4 border-t border-gray-800">
+                  <div className="mt-4 pt-4 border-t border-border">
                     <a href={activeSubmission.fileUrl} target="_blank" rel="noreferrer" className="text-blue-500 hover:underline">
                       View Attached File
                     </a>
@@ -198,7 +198,7 @@ export default function TeacherSubmissionsPage() {
 
             <form onSubmit={handleGradeSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">
+                <label className="block text-sm font-medium text-ink-muted mb-1">
                   Marks (Out of {activeSubmission.assignment?.maxMarks})
                 </label>
                 <input 
@@ -208,24 +208,24 @@ export default function TeacherSubmissionsPage() {
                   required 
                   value={formData.marks} 
                   onChange={(e) => setFormData({ ...formData, marks: parseInt(e.target.value) })} 
-                  className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" 
+                  className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" 
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Feedback</label>
+                <label className="block text-sm font-medium text-ink-muted mb-1">Feedback</label>
                 <textarea 
                   rows={4} 
                   value={formData.feedback} 
                   onChange={(e) => setFormData({ ...formData, feedback: e.target.value })} 
                   placeholder="Great job on this assignment..."
-                  className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" 
+                  className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" 
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-4 border-t border-gray-800 mt-6">
-                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">Cancel</button>
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">Save Grade</button>
+              <div className="flex justify-end gap-3 pt-4 border-t border-border mt-6">
+                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-ink-muted hover:text-ink hover:bg-border/30 transition-colors">Cancel</button>
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-ink px-4 py-2 rounded-lg transition-colors">Save Grade</button>
               </div>
             </form>
           </div>

@@ -155,3 +155,261 @@ CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email");
 2026-08-14 20:38:13.059 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260813132345_InitialCreate', '8.0.0');
+2026-08-14 20:38:51.539 +06:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-08-14 20:38:52.036 +06:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u)
+2026-08-14 20:38:52.357 +06:00 [INF] User profile is available. Using 'C:\Users\88019\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-14 20:38:52.623 +06:00 [INF] Now listening on: http://localhost:5000
+2026-08-14 20:38:52.628 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-08-14 20:38:52.628 +06:00 [INF] Hosting environment: Production
+2026-08-14 20:38:52.628 +06:00 [INF] Content root path: C:\Users\88019\Desktop\Assignment\backend\AssignmentSubmission.Api
+2026-08-14 20:39:51.851 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 72
+2026-08-14 20:39:51.878 +06:00 [WRN] Failed to determine the https port for redirect.
+2026-08-14 20:39:51.910 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:51.930 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AssignmentSubmission.Api.DTOs.LoginDto) on controller AssignmentSubmission.Api.Controllers.AuthController (AssignmentSubmission.Api).
+2026-08-14 20:39:52.087 +06:00 [INF] Executed DbCommand (17ms) [Parameters=[@__request_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."Name", u."PasswordHash", u."Role"
+FROM "Users" AS u
+WHERE u."Email" = @__request_Email_0
+LIMIT 1
+2026-08-14 20:39:52.640 +06:00 [INF] Executing OkObjectResult, writing value of type 'AssignmentSubmission.Api.DTOs.AuthResponseDto'.
+2026-08-14 20:39:52.656 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api) in 720.9627ms
+2026-08-14 20:39:52.660 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:52.663 +06:00 [INF] HTTP POST /api/auth/login responded 200 in 785.1882 ms
+2026-08-14 20:39:52.669 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 819.0355ms
+2026-08-14 20:39:52.730 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 75
+2026-08-14 20:39:52.733 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:52.733 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AssignmentSubmission.Api.DTOs.LoginDto) on controller AssignmentSubmission.Api.Controllers.AuthController (AssignmentSubmission.Api).
+2026-08-14 20:39:52.814 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__request_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."Name", u."PasswordHash", u."Role"
+FROM "Users" AS u
+WHERE u."Email" = @__request_Email_0
+LIMIT 1
+2026-08-14 20:39:53.275 +06:00 [INF] Executing OkObjectResult, writing value of type 'AssignmentSubmission.Api.DTOs.AuthResponseDto'.
+2026-08-14 20:39:53.276 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api) in 542.4452ms
+2026-08-14 20:39:53.276 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.276 +06:00 [INF] HTTP POST /api/auth/login responded 200 in 544.2021 ms
+2026-08-14 20:39:53.277 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 546.8017ms
+2026-08-14 20:39:53.286 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 75
+2026-08-14 20:39:53.290 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.290 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AssignmentSubmission.Api.DTOs.LoginDto) on controller AssignmentSubmission.Api.Controllers.AuthController (AssignmentSubmission.Api).
+2026-08-14 20:39:53.294 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__request_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."Name", u."PasswordHash", u."Role"
+FROM "Users" AS u
+WHERE u."Email" = @__request_Email_0
+LIMIT 1
+2026-08-14 20:39:53.641 +06:00 [INF] Executing OkObjectResult, writing value of type 'AssignmentSubmission.Api.DTOs.AuthResponseDto'.
+2026-08-14 20:39:53.642 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api) in 351.496ms
+2026-08-14 20:39:53.642 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.642 +06:00 [INF] HTTP POST /api/auth/login responded 200 in 355.6255 ms
+2026-08-14 20:39:53.642 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 356.1501ms
+2026-08-14 20:39:53.643 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 75
+2026-08-14 20:39:53.644 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.644 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AssignmentSubmission.Api.DTOs.LoginDto) on controller AssignmentSubmission.Api.Controllers.AuthController (AssignmentSubmission.Api).
+2026-08-14 20:39:53.647 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__request_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."Name", u."PasswordHash", u."Role"
+FROM "Users" AS u
+WHERE u."Email" = @__request_Email_0
+LIMIT 1
+2026-08-14 20:39:53.844 +06:00 [INF] Executing OkObjectResult, writing value of type 'AssignmentSubmission.Api.DTOs.AuthResponseDto'.
+2026-08-14 20:39:53.844 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api) in 199.6431ms
+2026-08-14 20:39:53.844 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.844 +06:00 [INF] HTTP POST /api/auth/login responded 200 in 200.3914 ms
+2026-08-14 20:39:53.844 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 200.8343ms
+2026-08-14 20:39:53.847 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/teacher-assignments - application/json 73
+2026-08-14 20:39:53.896 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api)'
+2026-08-14 20:39:53.901 +06:00 [INF] Route matched with {action = "CreateAssignment", controller = "TeacherAssignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateAssignment(TeacherAssignmentDto) on controller AssignmentSubmission.Api.Controllers.TeacherAssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.016 +06:00 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "TeacherAssignments" ("ClassCourseId", "SubjectId", "TeacherId")
+VALUES (@p0, @p1, @p2)
+RETURNING "Id";
+2026-08-14 20:39:54.036 +06:00 [INF] Executing CreatedAtActionResult, writing value of type 'AssignmentSubmission.Api.Models.TeacherSubjectAssignment'.
+2026-08-14 20:39:54.069 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api) in 168.2948ms
+2026-08-14 20:39:54.069 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.069 +06:00 [INF] HTTP POST /api/teacher-assignments responded 201 in 221.6740 ms
+2026-08-14 20:39:54.069 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/teacher-assignments - 201 null application/json; charset=utf-8 222.0938ms
+2026-08-14 20:39:54.100 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/assignments - application/json 247
+2026-08-14 20:39:54.102 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.109 +06:00 [INF] Route matched with {action = "Create", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(AssignmentSubmission.Api.DTOs.CreateAssignmentDto) on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.143 +06:00 [INF] Executed DbCommand (4ms) [Parameters=[@__teacherId_0='?' (DbType = Int32), @__dto_SubjectId_1='?' (DbType = Int32), @__dto_ClassCourseId_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "TeacherAssignments" AS t
+    WHERE t."TeacherId" = @__teacherId_0 AND t."SubjectId" = @__dto_SubjectId_1 AND t."ClassCourseId" = @__dto_ClassCourseId_2)
+2026-08-14 20:39:54.184 +06:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Int32), @p9='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Assignments" ("AllowLateSubmissions", "ClassCourseId", "CreatedAt", "Deadline", "Description", "MaxMarks", "Status", "SubjectId", "TeacherId", "Title")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9)
+RETURNING "Id";
+2026-08-14 20:39:54.187 +06:00 [INF] Executing CreatedAtActionResult, writing value of type 'AssignmentSubmission.Api.Models.Assignment'.
+2026-08-14 20:39:54.195 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api) in 85.2631ms
+2026-08-14 20:39:54.195 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.195 +06:00 [INF] HTTP POST /api/assignments responded 201 in 94.5480 ms
+2026-08-14 20:39:54.195 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/assignments - 201 null application/json; charset=utf-8 94.9626ms
+2026-08-14 20:39:54.200 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/assignments/for-me - application/json null
+2026-08-14 20:39:54.203 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.GetAssignmentsForMe (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.207 +06:00 [INF] Route matched with {action = "GetAssignmentsForMe", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAssignmentsForMe() on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.234 +06:00 [INF] Executed DbCommand (4ms) [Parameters=[@__studentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT e."ClassCourseId"
+FROM "Enrollments" AS e
+WHERE e."StudentId" = @__studentId_0
+2026-08-14 20:39:54.339 +06:00 [INF] Executed DbCommand (60ms) [Parameters=[@__classIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Assignments" AS a
+WHERE a."ClassCourseId" = ANY (@__classIds_0) AND a."Status" = 'Published'
+2026-08-14 20:39:54.341 +06:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AssignmentSubmission.Api.Models.Assignment, AssignmentSubmission.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-14 20:39:54.342 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.GetAssignmentsForMe (AssignmentSubmission.Api) in 134.8303ms
+2026-08-14 20:39:54.342 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.GetAssignmentsForMe (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.342 +06:00 [INF] HTTP GET /api/assignments/for-me responded 200 in 141.9162 ms
+2026-08-14 20:39:54.343 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/assignments/for-me - 200 null application/json; charset=utf-8 143.1734ms
+2026-08-14 20:39:54.357 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/submissions/mine - application/json null
+2026-08-14 20:39:54.358 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.362 +06:00 [INF] Route matched with {action = "GetMySubmissions", controller = "Submissions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMySubmissions() on controller AssignmentSubmission.Api.Controllers.SubmissionsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.431 +06:00 [INF] Executed DbCommand (5ms) [Parameters=[@__studentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT s."Id", s."AssignmentId", s."Content", s."Feedback", s."FileUrl", s."Marks", s."Status", s."StudentId", s."SubmittedAt", s."UpdatedAt", a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Submissions" AS s
+INNER JOIN "Assignments" AS a ON s."AssignmentId" = a."Id"
+WHERE s."StudentId" = @__studentId_0
+2026-08-14 20:39:54.432 +06:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AssignmentSubmission.Api.Models.Submission, AssignmentSubmission.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-14 20:39:54.440 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api) in 77.3999ms
+2026-08-14 20:39:54.440 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.440 +06:00 [INF] HTTP GET /api/submissions/mine responded 200 in 82.9713 ms
+2026-08-14 20:39:54.440 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/submissions/mine - 200 null application/json; charset=utf-8 83.5287ms
+2026-08-14 20:39:54.459 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/assignments/3 - application/json null
+2026-08-14 20:39:54.461 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.GetById (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.466 +06:00 [INF] Route matched with {action = "GetById", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.484 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Assignments" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-08-14 20:39:54.487 +06:00 [INF] Executing ForbidResult with authentication schemes ([]).
+2026-08-14 20:39:54.490 +06:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-08-14 20:39:54.491 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.GetById (AssignmentSubmission.Api) in 24.1228ms
+2026-08-14 20:39:54.491 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.GetById (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.491 +06:00 [INF] HTTP GET /api/assignments/3 responded 403 in 30.2856 ms
+2026-08-14 20:39:54.491 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/assignments/3 - 403 0 null 31.5398ms
+2026-08-14 20:39:54.568 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/teacher-assignments - application/json 73
+2026-08-14 20:39:54.569 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.569 +06:00 [INF] Route matched with {action = "CreateAssignment", controller = "TeacherAssignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateAssignment(TeacherAssignmentDto) on controller AssignmentSubmission.Api.Controllers.TeacherAssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.575 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "TeacherAssignments" ("ClassCourseId", "SubjectId", "TeacherId")
+VALUES (@p0, @p1, @p2)
+RETURNING "Id";
+2026-08-14 20:39:54.575 +06:00 [INF] Executing CreatedAtActionResult, writing value of type 'AssignmentSubmission.Api.Models.TeacherSubjectAssignment'.
+2026-08-14 20:39:54.576 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api) in 6.6734ms
+2026-08-14 20:39:54.576 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.TeacherAssignmentsController.CreateAssignment (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.577 +06:00 [INF] HTTP POST /api/teacher-assignments responded 201 in 7.8045 ms
+2026-08-14 20:39:54.577 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/teacher-assignments - 201 null application/json; charset=utf-8 8.2498ms
+2026-08-14 20:39:54.578 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/assignments - application/json 255
+2026-08-14 20:39:54.579 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.579 +06:00 [INF] Route matched with {action = "Create", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(AssignmentSubmission.Api.DTOs.CreateAssignmentDto) on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.582 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__teacherId_0='?' (DbType = Int32), @__dto_SubjectId_1='?' (DbType = Int32), @__dto_ClassCourseId_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "TeacherAssignments" AS t
+    WHERE t."TeacherId" = @__teacherId_0 AND t."SubjectId" = @__dto_SubjectId_1 AND t."ClassCourseId" = @__dto_ClassCourseId_2)
+2026-08-14 20:39:54.585 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Int32), @p9='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Assignments" ("AllowLateSubmissions", "ClassCourseId", "CreatedAt", "Deadline", "Description", "MaxMarks", "Status", "SubjectId", "TeacherId", "Title")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9)
+RETURNING "Id";
+2026-08-14 20:39:54.586 +06:00 [INF] Executing CreatedAtActionResult, writing value of type 'AssignmentSubmission.Api.Models.Assignment'.
+2026-08-14 20:39:54.586 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api) in 7.3739ms
+2026-08-14 20:39:54.588 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.588 +06:00 [INF] HTTP POST /api/assignments responded 201 in 9.5809 ms
+2026-08-14 20:39:54.588 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/assignments - 201 null application/json; charset=utf-8 10.0354ms
+2026-08-14 20:39:54.590 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/submissions - application/json 75
+2026-08-14 20:39:54.590 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.Submit (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.595 +06:00 [INF] Route matched with {action = "Submit", controller = "Submissions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Submit(AssignmentSubmission.Api.DTOs.CreateSubmissionDto) on controller AssignmentSubmission.Api.Controllers.SubmissionsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.605 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Assignments" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-08-14 20:39:54.612 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__dto_AssignmentId_0='?' (DbType = Int32), @__studentId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT s."Id", s."AssignmentId", s."Content", s."Feedback", s."FileUrl", s."Marks", s."Status", s."StudentId", s."SubmittedAt", s."UpdatedAt"
+FROM "Submissions" AS s
+WHERE s."AssignmentId" = @__dto_AssignmentId_0 AND s."StudentId" = @__studentId_1
+LIMIT 1
+2026-08-14 20:39:54.656 +06:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?', @p2='?', @p3='?', @p4='?' (DbType = Int32), @p5='?', @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Submissions" ("AssignmentId", "Content", "Feedback", "FileUrl", "Marks", "Status", "StudentId", "SubmittedAt", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-08-14 20:39:54.660 +06:00 [INF] Executing CreatedAtActionResult, writing value of type 'AssignmentSubmission.Api.Models.Submission'.
+2026-08-14 20:39:54.662 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.SubmissionsController.Submit (AssignmentSubmission.Api) in 67.1218ms
+2026-08-14 20:39:54.663 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.Submit (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.663 +06:00 [INF] HTTP POST /api/submissions responded 201 in 72.7927 ms
+2026-08-14 20:39:54.663 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/submissions - 201 null application/json; charset=utf-8 73.2655ms
+2026-08-14 20:39:54.675 +06:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5000/api/assignments/3 - application/json 254
+2026-08-14 20:39:54.676 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Update (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.681 +06:00 [INF] Route matched with {action = "Update", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, AssignmentSubmission.Api.DTOs.CreateAssignmentDto) on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.686 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Assignments" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-08-14 20:39:54.687 +06:00 [INF] Executing ForbidResult with authentication schemes ([]).
+2026-08-14 20:39:54.688 +06:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-08-14 20:39:54.688 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.Update (AssignmentSubmission.Api) in 6.7725ms
+2026-08-14 20:39:54.688 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Update (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.688 +06:00 [INF] HTTP PUT /api/assignments/3 responded 403 in 12.7616 ms
+2026-08-14 20:39:54.689 +06:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5000/api/assignments/3 - 403 0 null 13.2853ms
+2026-08-14 20:39:54.691 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/assignments - application/json 246
+2026-08-14 20:39:54.692 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.692 +06:00 [INF] Route matched with {action = "Create", controller = "Assignments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(AssignmentSubmission.Api.DTOs.CreateAssignmentDto) on controller AssignmentSubmission.Api.Controllers.AssignmentsController (AssignmentSubmission.Api).
+2026-08-14 20:39:54.695 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__teacherId_0='?' (DbType = Int32), @__dto_SubjectId_1='?' (DbType = Int32), @__dto_ClassCourseId_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "TeacherAssignments" AS t
+    WHERE t."TeacherId" = @__teacherId_0 AND t."SubjectId" = @__dto_SubjectId_1 AND t."ClassCourseId" = @__dto_ClassCourseId_2)
+2026-08-14 20:39:54.696 +06:00 [INF] Executing ForbidResult with authentication schemes ([]).
+2026-08-14 20:39:54.696 +06:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-08-14 20:39:54.696 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api) in 3.9398ms
+2026-08-14 20:39:54.696 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AssignmentsController.Create (AssignmentSubmission.Api)'
+2026-08-14 20:39:54.696 +06:00 [INF] HTTP POST /api/assignments responded 403 in 4.9838 ms
+2026-08-14 20:39:54.696 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/assignments - 403 0 null 5.4368ms
+2026-08-14 20:40:13.643 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 75
+2026-08-14 20:40:13.643 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:40:13.643 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AssignmentSubmission.Api.DTOs.LoginDto) on controller AssignmentSubmission.Api.Controllers.AuthController (AssignmentSubmission.Api).
+2026-08-14 20:40:13.646 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__request_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."Name", u."PasswordHash", u."Role"
+FROM "Users" AS u
+WHERE u."Email" = @__request_Email_0
+LIMIT 1
+2026-08-14 20:40:13.915 +06:00 [INF] Executing OkObjectResult, writing value of type 'AssignmentSubmission.Api.DTOs.AuthResponseDto'.
+2026-08-14 20:40:13.915 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api) in 271.9169ms
+2026-08-14 20:40:13.915 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.AuthController.Login (AssignmentSubmission.Api)'
+2026-08-14 20:40:13.915 +06:00 [INF] HTTP POST /api/auth/login responded 200 in 272.5321 ms
+2026-08-14 20:40:13.916 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 273.125ms
+2026-08-14 20:40:13.924 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/submissions/mine - application/json null
+2026-08-14 20:40:13.926 +06:00 [INF] Executing endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api)'
+2026-08-14 20:40:13.926 +06:00 [INF] Route matched with {action = "GetMySubmissions", controller = "Submissions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMySubmissions() on controller AssignmentSubmission.Api.Controllers.SubmissionsController (AssignmentSubmission.Api).
+2026-08-14 20:40:13.929 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__studentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT s."Id", s."AssignmentId", s."Content", s."Feedback", s."FileUrl", s."Marks", s."Status", s."StudentId", s."SubmittedAt", s."UpdatedAt", a."Id", a."AllowLateSubmissions", a."ClassCourseId", a."CreatedAt", a."Deadline", a."Description", a."MaxMarks", a."Status", a."SubjectId", a."TeacherId", a."Title"
+FROM "Submissions" AS s
+INNER JOIN "Assignments" AS a ON s."AssignmentId" = a."Id"
+WHERE s."StudentId" = @__studentId_0
+2026-08-14 20:40:13.936 +06:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AssignmentSubmission.Api.Models.Submission, AssignmentSubmission.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-08-14 20:40:13.936 +06:00 [INF] Executed action AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api) in 9.4078ms
+2026-08-14 20:40:13.936 +06:00 [INF] Executed endpoint 'AssignmentSubmission.Api.Controllers.SubmissionsController.GetMySubmissions (AssignmentSubmission.Api)'
+2026-08-14 20:40:13.936 +06:00 [INF] HTTP GET /api/submissions/mine responded 200 in 10.6413 ms
+2026-08-14 20:40:13.936 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/submissions/mine - 200 null application/json; charset=utf-8 12.1211ms

@@ -65,7 +65,7 @@ export default function StudentAssignmentDetailPage() {
     fetchDetails();
   }, [params.id, router]);
 
-  if (loading) return <div className="text-gray-400">Loading assignment...</div>;
+  if (loading) return <div className="text-ink-muted">Loading assignment...</div>;
   if (!assignment) return <div className="text-red-400">Assignment not found.</div>;
 
   const isPastDeadline = new Date() > new Date(assignment.deadline);
@@ -96,17 +96,17 @@ export default function StudentAssignmentDetailPage() {
 
   return (
     <div>
-      <Link href="/student/assignments" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
+      <Link href="/student/assignments" className="inline-flex items-center gap-2 text-ink-muted hover:text-ink transition-colors mb-6">
         <ArrowLeft className="w-4 h-4" /> Back to Assignments
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Assignment Details */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 lg:p-8">
-            <h1 className="text-2xl lg:text-3xl font-bold text-white mb-4">{assignment.title}</h1>
+          <div className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+            <h1 className="text-2xl lg:text-3xl font-bold text-ink mb-4">{assignment.title}</h1>
             
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-8 pb-6 border-b border-gray-800">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-ink-muted mb-8 pb-6 border-b border-border">
               <span className="flex items-center gap-1"><AlertCircle className="w-4 h-4" /> Due: {new Date(assignment.deadline).toLocaleString()}</span>
               <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Marks: {assignment.maxMarks}</span>
               {assignment.allowLateSubmissions && (
@@ -115,15 +115,15 @@ export default function StudentAssignmentDetailPage() {
             </div>
 
             <div className="prose prose-invert max-w-none">
-              <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{assignment.description}</p>
+              <p className="text-ink leading-relaxed whitespace-pre-wrap">{assignment.description}</p>
             </div>
           </div>
         </div>
 
         {/* Submission Panel */}
         <div className="lg:col-span-1">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 sticky top-6">
-            <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <div className="bg-surface border border-border rounded-xl p-6 sticky top-6">
+            <h2 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
               <Upload className="w-5 h-5 text-green-500" />
               Your Work
             </h2>
@@ -134,14 +134,14 @@ export default function StudentAssignmentDetailPage() {
                   <p className="text-green-400 font-medium flex items-center gap-2 mb-2">
                     <CheckCircle className="w-4 h-4" /> {submission.status}
                   </p>
-                  <p className="text-sm text-gray-400 mb-4">Last updated: {new Date(submission.updatedAt).toLocaleString()}</p>
+                  <p className="text-sm text-ink-muted mb-4">Last updated: {new Date(submission.updatedAt).toLocaleString()}</p>
                   
                   {submission.status === 'Graded' && (
                     <div className="mt-4 pt-4 border-t border-green-500/20">
-                      <p className="text-white font-bold text-xl mb-1">{submission.marks} / {assignment.maxMarks}</p>
+                      <p className="text-ink font-bold text-xl mb-1">{submission.marks} / {assignment.maxMarks}</p>
                       {submission.feedback && (
-                        <p className="text-sm text-gray-300 mt-2 bg-gray-950 p-3 rounded-lg border border-gray-800">
-                          <span className="block text-gray-500 text-xs uppercase mb-1">Teacher Feedback:</span>
+                        <p className="text-sm text-ink mt-2 bg-paper p-3 rounded-lg border border-border">
+                          <span className="block text-ink-muted text-xs uppercase mb-1">Teacher Feedback:</span>
                           {submission.feedback}
                         </p>
                       )}
@@ -152,7 +152,7 @@ export default function StudentAssignmentDetailPage() {
                 {submission.status !== 'Graded' && (!isPastDeadline || assignment.allowLateSubmissions) && (
                   <button 
                     onClick={() => setIsEditing(true)}
-                    className="w-full py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors text-sm font-medium"
+                    className="w-full py-2.5 rounded-lg border border-border text-ink hover:bg-border/30 transition-colors text-sm font-medium"
                   >
                     Unsubmit / Edit Work
                   </button>
@@ -161,7 +161,7 @@ export default function StudentAssignmentDetailPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 {isPastDeadline && !assignment.allowLateSubmissions ? (
-                  <div className="bg-red-500/10 text-red-400 p-4 rounded-lg text-sm">
+                  <div className="rubber-stamp-red p-4 rounded-lg text-sm">
                     The deadline has passed. You can no longer submit this assignment.
                   </div>
                 ) : (
@@ -172,18 +172,18 @@ export default function StudentAssignmentDetailPage() {
                       </div>
                     )}
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Answer Text</label>
+                      <label className="block text-sm font-medium text-ink-muted mb-1">Answer Text</label>
                       <textarea 
                         rows={6} 
                         required 
                         placeholder="Write your answer here..."
                         value={formData.content} 
                         onChange={(e) => setFormData({ ...formData, content: e.target.value })} 
-                        className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500 text-sm" 
+                        className="w-full bg-paper border border-border rounded-lg px-4 py-3 text-ink focus:outline-none focus:border-green-500 text-sm" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1 flex items-center justify-between">
+                      <label className="block text-sm font-medium text-ink-muted mb-1 flex items-center justify-between">
                         File Link (Optional)
                         <FileText className="w-4 h-4" />
                       </label>
@@ -192,20 +192,20 @@ export default function StudentAssignmentDetailPage() {
                         placeholder="https://docs.google.com/..."
                         value={formData.fileUrl} 
                         onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })} 
-                        className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500 text-sm" 
+                        className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-green-500 text-sm" 
                       />
                     </div>
                     
                     <div className="pt-2 flex gap-2">
                       {isEditing && (
-                        <button type="button" onClick={() => setIsEditing(false)} className="flex-1 py-2.5 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors text-sm font-medium">
+                        <button type="button" onClick={() => setIsEditing(false)} className="flex-1 py-2.5 rounded-lg border border-border text-ink hover:bg-border/30 transition-colors text-sm font-medium">
                           Cancel
                         </button>
                       )}
                       <button 
                         type="submit" 
                         disabled={submitting}
-                        className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white py-2.5 rounded-lg transition-colors text-sm font-medium shadow-lg shadow-green-900/20"
+                        className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-ink py-2.5 rounded-lg transition-colors text-sm font-medium shadow-lg shadow-green-900/20"
                       >
                         {submitting ? 'Turning in...' : 'Turn In'}
                       </button>

@@ -80,10 +80,10 @@ export default function AdminUsersPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-white">Manage Users</h1>
+        <h1 className="text-2xl font-bold text-ink">Manage Users</h1>
         <button 
           onClick={() => handleOpenModal()}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-blue-600 hover:bg-blue-700 text-ink px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <UserPlus className="w-4 h-4" />
           Add User
@@ -91,23 +91,23 @@ export default function AdminUsersPage() {
       </div>
 
       {loading ? (
-        <div className="text-gray-400">Loading users...</div>
+        <div className="text-ink-muted">Loading users...</div>
       ) : (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-800/50 border-b border-gray-800">
-                <th className="p-4 text-sm font-medium text-gray-400">Name</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Email</th>
-                <th className="p-4 text-sm font-medium text-gray-400">Role</th>
-                <th className="p-4 text-sm font-medium text-gray-400 text-right">Actions</th>
+              <tr className="bg-border/20 border-b border-border">
+                <th className="p-4 text-sm font-medium text-ink-muted">Name</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Email</th>
+                <th className="p-4 text-sm font-medium text-ink-muted">Role</th>
+                <th className="p-4 text-sm font-medium text-ink-muted text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800">
+            <tbody className="divide-y divide-border">
               {users.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-800/20 transition-colors">
-                  <td className="p-4 text-sm text-gray-200">{user.name}</td>
-                  <td className="p-4 text-sm text-gray-400">{user.email}</td>
+                <tr key={user.id} className="hover:bg-border/30 transition-colors">
+                  <td className="p-4 text-sm text-ink">{user.name}</td>
+                  <td className="p-4 text-sm text-ink-muted">{user.email}</td>
                   <td className="p-4">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                       user.role === 'Admin' ? 'bg-purple-500/10 text-purple-400' :
@@ -120,13 +120,13 @@ export default function AdminUsersPage() {
                   <td className="p-4 text-right">
                     <button 
                       onClick={() => handleOpenModal(user)}
-                      className="text-gray-500 hover:text-blue-400 transition-colors mr-3"
+                      className="text-ink-muted hover:text-blue-400 transition-colors mr-3"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => handleDelete(user.id)}
-                      className="text-gray-500 hover:text-red-400 transition-colors"
+                      className="text-ink-muted hover:text-red-400 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -135,7 +135,7 @@ export default function AdminUsersPage() {
               ))}
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-gray-500">
+                  <td colSpan={4} className="p-8 text-center text-ink-muted">
                     No users found.
                   </td>
                 </tr>
@@ -148,42 +148,42 @@ export default function AdminUsersPage() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl w-full max-w-md p-6 shadow-xl">
+          <div className="bg-surface border border-border rounded-xl w-full max-w-md p-6 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-white">
+              <h2 className="text-xl font-bold text-ink">
                 {editingId ? 'Edit User' : 'Add User'}
               </h2>
-              <button onClick={handleCloseModal} className="text-gray-400 hover:text-gray-200">
+              <button onClick={handleCloseModal} className="text-ink-muted hover:text-ink">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
-                <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" />
+                <label className="block text-sm font-medium text-ink-muted mb-1">Name</label>
+                <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" />
+                <label className="block text-sm font-medium text-ink-muted mb-1">Email</label>
+                <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" />
               </div>
               {!editingId && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">Password</label>
-                  <input type="password" required value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" />
+                  <label className="block text-sm font-medium text-ink-muted mb-1">Password</label>
+                  <input type="password" required value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" />
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1">Role</label>
-                <select value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })} className="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                <label className="block text-sm font-medium text-ink-muted mb-1">Role</label>
+                <select value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })} className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500">
                   <option value="Student">Student</option>
                   <option value="Teacher">Teacher</option>
                   <option value="Admin">Admin</option>
                 </select>
               </div>
               <div className="flex justify-end gap-3 pt-4">
-                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">Cancel</button>
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">Save</button>
+                <button type="button" onClick={handleCloseModal} className="px-4 py-2 rounded-lg text-ink-muted hover:text-ink hover:bg-border/30 transition-colors">Cancel</button>
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-ink px-4 py-2 rounded-lg transition-colors">Save</button>
               </div>
             </form>
           </div>
