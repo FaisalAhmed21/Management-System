@@ -1,0 +1,44 @@
+services:
+  # Managed PostgreSQL Database
+  - type: psql
+    name: assignment-db
+    plan: free
+    postgresMajorVersion: 15
+
+  # ASP.NET Core Backend
+  - type: web
+    name: assignment-backend
+    env: docker
+    plan: free
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: assignment-db
+          property: connectionString
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__Issuer
+        value: AssignmentSubmissionApi
+      - key: Jwt__Audience
+        value: AssignmentSubmissionUsers
+      # We will allow CORS for the exact frontend name we create below
+      - key: FrontendUrl
+        value: https://assignment-frontend-qwer.onrender.com
+
+  # Next.js Frontend
+  - type: web
+    name: assignment-frontend-qwer
+    env: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: assignment-backend
+          property: host
+          format: https://{host}/api

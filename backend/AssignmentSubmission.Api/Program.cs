@@ -44,9 +44,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    // Render provides postgres:// URL, but Npgsql needs a properly formatted string if not using URL natively.
+    // However, Npgsql natively supports postgres:// URLs in .NET 8, so we can just use it directly!
+    connectionString = databaseUrl;
+}
+
 // Configure EF Core with PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // Configure JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -76,11 +86,13 @@ builder.Services.AddAuthorization(options =>
 });
 
 // Enable CORS
+var frontendUrl = Environment.GetEnvironmentVariable("FrontendUrl") ?? "http://localhost:3000";
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins(frontendUrl)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
