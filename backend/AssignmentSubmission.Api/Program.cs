@@ -49,9 +49,21 @@ var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
 if (!string.IsNullOrEmpty(databaseUrl))
 {
-    // Render provides postgres:// URL, but Npgsql needs a properly formatted string if not using URL natively.
-    // However, Npgsql natively supports postgres:// URLs in .NET 8, so we can just use it directly!
-    connectionString = databaseUrl;
+    var databaseUri = new Uri(databaseUrl);
+    var userInfo = databaseUri.UserInfo.Split(':');
+
+    var builderConfig = new Npgsql.NpgsqlConnectionStringBuilder
+    {
+        Host = databaseUri.Host,
+        Port = databaseUri.IsDefaultPort ? 5432 : databaseUri.Port,
+        Username = userInfo[0],
+        Password = userInfo[1],
+        Database = databaseUri.LocalPath.TrimStart('/'),
+        SslMode = Npgsql.SslMode.Prefer,
+        TrustServerCertificate = true
+    };
+
+    connectionString = builderConfig.ToString();
 }
 
 // Configure EF Core with PostgreSQL
