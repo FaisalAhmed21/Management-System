@@ -206,8 +206,8 @@ export default function TeacherSubmissionsPage() {
                   min="0" 
                   max={activeSubmission.assignment?.maxMarks} 
                   required 
-                  value={formData.marks} 
-                  onChange={(e) => setFormData({ ...formData, marks: parseInt(e.target.value) })} 
+                  value={Number.isNaN(formData.marks) ? '' : formData.marks} 
+                  onChange={(e) => setFormData({ ...formData, marks: e.target.value === '' ? ('' as any) : parseInt(e.target.value) })} 
                   className="w-full bg-paper border border-border rounded-lg px-4 py-2 text-ink focus:outline-none focus:border-blue-500" 
                 />
               </div>
